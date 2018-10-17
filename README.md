@@ -1,5 +1,5 @@
 
- **MNIST classification by Keras **
+# **MNIST classification by Keras**
 
 ### MNIST for beginners in tensorflow:
 https://www.tensorflow.org/tutorials/
