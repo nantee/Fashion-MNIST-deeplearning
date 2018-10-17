@@ -15,16 +15,16 @@ For example, pixel31 indicates the pixel that is in the fourth column from the l
 
 Each training and test example is assigned to one of the following labels:
 
-0 T-shirt/top
-1 Trouser
-2 Pullover
-3 Dress
-4 Coat
-5 Sandal
-6 Shirt
-7 Sneaker
-8 Bag
-9 Ankle boot 
+- 0 T-shirt/top
+- 1 Trouser
+- 2 Pullover
+- 3 Dress
+- 4 Coat
+- 5 Sandal
+- 6 Shirt
+- 7 Sneaker
+- 8 Bag
+- 9 Ankle boot 
 
 TL;DR
 
