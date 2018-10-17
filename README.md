@@ -1,5 +1,5 @@
 
-# **MNIST classification by Keras**
+# **Fashion MNIST classification with Deeplearning**
 
 ### MNIST for beginners in tensorflow:
 https://www.tensorflow.org/tutorials/
