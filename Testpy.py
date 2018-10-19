@@ -19,6 +19,12 @@ import math as m
 import time
 import keras
 
+## Check for tensorflow-gpu (running on NVIDIA Quadro M1000M)
+import tensorflow as tf
+hello = tf.constant('Hello, TensorFlow!')
+sess = tf.Session()
+print(sess.run(hello))
+
 
 ## Reading in data
 train = pd.read_csv('C:/Sogeti_Projekt/Python_deeplearning_IDLE/Fashion-MNIST_data/fashion-mnist_train.csv')
