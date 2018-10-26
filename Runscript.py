@@ -139,9 +139,8 @@ score, predicted_class, predicted_proba, history = CNN_model()
 ## Visualize predictions, truth and probabilities
 def VisualizePredictions(start, end):
     for i in range(start, end):
-        print("X = {0}, Predicted class = {1}".format(x_test[i], labels[predicted_class[i]]))
-    for i in range(start, end):
-        ## In case of correct classfication, plot with green maintitle
+            ## In case of correct classfication, plot with green maintitle else red.
+            print("X = {0}, Predicted class = {1}".format(x_test[i], labels[predicted_class[i]]))
             plt.imshow(x_test[i,:,:, 0])
             plt.title('True class: {0} \n Predicted class: {1} \n with probability {2:.4f}'.format(labels[predicted_class[i]], labels[y_test_long[i]], predicted_proba[i][predicted_class[i]]),
              color = 'green' if labels[predicted_class[i]] == labels[y_test_long[i]] else 'red', size = 12)
