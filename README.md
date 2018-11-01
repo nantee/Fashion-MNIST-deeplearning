@@ -9,6 +9,8 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 * numpy
 * mathplotlib
 
+![Predictions](Graph-metric.gif)
+
 ## How to
 
 There's a mainscript `main.py`.
