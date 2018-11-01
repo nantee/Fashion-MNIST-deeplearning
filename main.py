@@ -11,14 +11,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import math as m
 import keras
-
-## Check for tensorflow-gpu
-import tensorflow as tf
-hello = tf.constant('Hello, TensorFlow!')
-sess = tf.Session()
-print(sess.run(hello))
 
 ## Reading in data
 train = pd.read_csv(input_path_train)
