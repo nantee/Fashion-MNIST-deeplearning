@@ -1,6 +1,6 @@
 
 # **Fashion MNIST classification with Deep learning**
-Train a deep Convolutional neural network to classify Zalando’s article images.
+Train a deep Convolutional neural network to classify Zalando’s article images with keras. 
 
 
 ### MNIST for beginners in tensorflow:
