@@ -1,5 +1,5 @@
 
-# **Fashion MNIST classification with Deep learning**
+# **Fashion MNIST Deep learning**
 Train a deep Convolutional neural network to classify Zalando’s article images with keras. 
 
 
