@@ -5,7 +5,7 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 
-## data dependencies
+## Data dependencies
 import os
 import tensorflow as tf
 import numpy as np
@@ -21,7 +21,6 @@ sess = tf.Session()
 print(sess.run(hello))
 
 ## Reading in data
-
 train = pd.read_csv(input_path_train)
 test = pd.read_csv(input_path_test)
 
