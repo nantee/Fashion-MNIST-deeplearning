@@ -19,10 +19,10 @@ There's a mainscript `main.py` performing step 1 and 2.
 The goal of the visualization is to see what decision the model takes, what are the probabilities which lead to it and what are the true label of the image.
 
 
-### MNIST for beginners in tensorflow:
+## MNIST for beginners in tensorflow:
 https://www.tensorflow.org/tutorials/
 
-### Download Fashion MNIST data:
+## Download Fashion MNIST data:
 https://www.kaggle.com/zalando-research/fashionmnist
 
 
