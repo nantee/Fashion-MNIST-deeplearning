@@ -5,10 +5,6 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.decomposition import PCA
-
 ## data dependencies
 import os
 import tensorflow as tf
@@ -16,10 +12,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import math as m
-import time
 import keras
 
-## Check for tensorflow-gpu (running on NVIDIA Quadro M1000M)
+## Check for tensorflow-gpu
 import tensorflow as tf
 hello = tf.constant('Hello, TensorFlow!')
 sess = tf.Session()
@@ -27,8 +22,8 @@ print(sess.run(hello))
 
 ## Reading in data
 
-train = pd.read_csv('C:/Sogeti_Projekt/Python_deeplearning_IDLE/Fashion-MNIST_data/fashion-mnist_train.csv')
-test = pd.read_csv('C:/Sogeti_Projekt/Python_deeplearning_IDLE/Fashion-MNIST_data/fashion-mnist_test.csv')
+train = pd.read_csv(input_path_train)
+test = pd.read_csv(input_path_test)
 
 print('Training data have a proportion of {}'.format(len(train) / ( len(train) + len(test)))) 
 print('Test data have a proportion of {}'.format(1- len(train) / ( len(train) + len(test))))
@@ -88,10 +83,10 @@ def CNN_model():
     model.add( Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape = input_shape) )
     model.add( Conv2D(62, (3, 3), activation='relu') )
     model.add( MaxPooling2D(pool_size=(2, 2)) )
-    model.add( Dropout(0.1) )
+    model.add( Dropout(0.5) )
     model.add( Flatten() )
     model.add( Dense(142, activation='relu' ))
-    model.add( Dropout(0.1) )
+    model.add( Dropout(0.5) )
     model.add(Dense(num_classes, activation='softmax'))
     
     model.compile(loss = keras.losses.categorical_crossentropy,
