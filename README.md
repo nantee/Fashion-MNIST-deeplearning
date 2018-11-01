@@ -9,8 +9,6 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 * numpy
 * mathplotlib
 
-![Predictions](Graph-metric.gif)
-
 ## How to
 
 There's a mainscript `main.py`.
@@ -19,6 +17,8 @@ There's a mainscript `main.py`.
 2) Specify batch size, number of classes and epochs. Convert categorical vectors to binary class matrix enabling matrix-operations within the network. Define a sequential model and add convolutional, pooling and fully connected layers. Hyperparameters are intuitively predefined and relevant loss function and evaluation metrices are set. 
 
 3) The model history, categorical and probability predictions are saved and visually evaluated in a defined function. 
+
+![Predictions](Graph-metric.gif)
 
 ## MNIST for beginners in tensorflow:
 https://www.tensorflow.org/tutorials/
