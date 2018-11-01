@@ -18,7 +18,7 @@ There's a mainscript `main.py`.
 
 3) The model history, categorical and probability predictions are saved and visually evaluated in a defined function. 
 
-![Predictions](Graph-metric.gif = 250x250)
+![Predictions](Graph-metric.gif)
 
 Predictions, truth and probability. Green title is correct classification and red title shows the non-correct classifications. 
 
