@@ -17,107 +17,119 @@ import keras
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-def read_fashion_mnist(x_train, y_train, x_test, y_test):
-    ## Reading in data    
-    print('Training data have a proportion of {}'.format(len(x_train) / ( len(x_train) + len(x_test)))) 
-    print('Test data have a proportion of {}'.format(1- len(x_train) / ( len(x_train) + len(x_test))))
-    
-    ## Input image dimensions
-    img_rows, img_cols = 28, 28
-    
-    x_train = np.array(x_train)
-    x_test = np.array(x_test)
-    
-    ## Transform data from (60000, 784) to (60000, 28, 28, 1)
-    x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
-    x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
-    input_shape = (img_rows, img_cols, 1)
-    
-    ## Normalization (pixel values varies from 0 to 255)
-    x_train = x_train.astype('float32') / 255
-    x_test = x_test.astype('float32') / 255
-    
-    print('x_train shape:', x_train.shape)
-    print('x_test shape:', x_test.shape)
-    print(x_train.shape[0], 'train samples')
-    print(x_test.shape[0], 'test samples')
-    
-    ## Model performance
-    batch_size = 128
-    num_classes = 10
-    epochs = 8
-    
-    ## Convert classvectors to binary class matrix
-    y_train = keras.utils.to_categorical(y_train, num_classes)
-    y_test = keras.utils.to_categorical(y_test, num_classes)
-    return x_train, x_test, y_train, y_test
 
-x_train, y_train, x_test, y_test = read_fashion_mnist(x_train, y_train, x_test, y_test)
-
-
-def CNN_model():
-    ## Define model
-    model = Sequential()
+class fashion_mnist_classifier:
+       
+    def __init__(self, x_train, y_train, x_test, y_test):
+        self.x_train = x_train
+        self.y_train = y_train
+        self.x_test = x_test
+        self.y_test = y_test
     
-    model.add( Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape = input_shape) )
-    model.add( Conv2D(62, (3, 3), activation='relu') )
-    model.add( MaxPooling2D(pool_size=(2, 2)) )
-    model.add( Dropout(0.5) )
-    model.add( Flatten() )
-    model.add( Dense(142, activation='relu' ))
-    model.add( Dropout(0.5) )
-    model.add(Dense(num_classes, activation='softmax'))
+    def read_fashion_mnist(self):
+        ## Reading in data    
+        print('Training data have a proportion of {}'.format(len(self.x_train) / ( len(self.x_train) + len(self.x_test)))) 
+        print('Test data have a proportion of {}'.format(1- len(self.x_train) / ( len(self.x_train) + len(self.x_test))))
+        
+        ## Input image dimensions
+        img_rows, img_cols = 28, 28
+        
+        self.x_train = np.array(self.x_train)
+        self.x_test = np.array(self.x_test)
+        
+        ## Transform data from (N, 784) to (N, 28, 28, 1)
+        self.x_train = self.x_train.reshape(self.x_train.shape[0], img_rows, img_cols, 1)
+        self.x_test = self.x_test.reshape(self.x_test.shape[0], img_rows, img_cols, 1)
+        self.input_shape = (img_rows, img_cols, 1)
+        
+        ## Normalization (pixel values varies from 0 to 255)
+        self.x_train = self.x_train.astype('float32') / 255
+        self.x_test = self.x_test.astype('float32') / 255
+        
+        print('x_train shape:', self.x_train.shape)
+        print('x_test shape:', self.x_train.shape)
+        print(self.x_train.shape[0], 'train samples')
+        print(self.x_test.shape[0], 'test samples')
+        
+        self.num_classes = len(np.unique(self.y_train))
+        
+        ## Convert classvectors to binary class matrix
+        self.y_train_mat = keras.utils.to_categorical(self.y_train, self.num_classes)
+        self.y_test_mat = keras.utils.to_categorical(self.y_test, self.num_classes)
+        #return self.x_train, self.x_test, self.y_train, self.y_test
     
-    model.compile(loss = keras.losses.categorical_crossentropy,
-                optimizer = keras.optimizers.Adam(),
-                metrics=['accuracy'])
-                
-    history = model.fit(x_train, y_train,
-            batch_size = batch_size,
-            epochs = epochs,
-            verbose = 1,
-            validation_data=(x_test, y_test))
-            
-    score = model.evaluate(x_test, y_test, verbose=0)
-    predicted_class = model.predict_classes(x_test, batch_size = batch_size, verbose=0)
-    predicted_proba = model.predict_proba(x_test, batch_size = batch_size, verbose=0)
+    def CNN_model(self, batch_size, epochs):
+        ## Define model
+        model = Sequential()
+        
+        model.add( Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape = self.input_shape) )
+        model.add( Conv2D(62, (3, 3), activation='relu') )
+        model.add( MaxPooling2D(pool_size=(2, 2)) )
+        model.add( Dropout(0.5) )
+        model.add( Flatten() )
+        model.add( Dense(142, activation='relu' ))
+        model.add( Dropout(0.5) )
+        model.add(Dense(self.num_classes, activation='softmax'))
+        
+        model.compile(loss = keras.losses.categorical_crossentropy,
+                    optimizer = keras.optimizers.Adam(),
+                    metrics=['accuracy'])
+        
+        history = model.fit(self.x_train, self.y_train_mat,
+                batch_size = batch_size,
+                epochs = epochs,
+                verbose = 1,
+                validation_data=(self.x_test, self.y_test_mat))
+        
+        self.score = model.evaluate(self.x_test, self.y_test_mat, verbose=0)
+        self.predicted_class = model.predict_classes(self.x_test, batch_size = batch_size, verbose=0)
+        self.predicted_proba = model.predict_proba(self.x_test, batch_size = batch_size, verbose=0)
+        
+        print('Test loss:', self.score[0])
+        print('Test accuracy:', self.score[1])
+        print(history.history.keys())
+        
+        # summarize history for accuracy
+        plt.plot(history.history['acc'], color = 'blue', marker = 'o')
+        plt.plot(history.history['val_acc'], color = 'red', marker = 'o')
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+        
+        # summarize history for loss
+        plt.plot(history.history['loss'], color = 'blue', marker = 'o')
+        plt.plot(history.history['val_loss'], color = 'red', marker = 'o')
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+        print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
+        return self.score, self.predicted_class, self.predicted_proba, history
     
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-    print(history.history.keys())
-    
-    # summarize history for accuracy
-    plt.plot(history.history['acc'], color = 'blue', marker = 'o')
-    plt.plot(history.history['val_acc'], color = 'red', marker = 'o')
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
-    
-    # summarize history for loss
-    plt.plot(history.history['loss'], color = 'blue', marker = 'o')
-    plt.plot(history.history['val_loss'], color = 'red', marker = 'o')
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
-    print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
-    return(score, predicted_class, predicted_proba, history)
-
-
-score, predicted_class, predicted_proba, history = CNN_model()
-
-
-## Visualize predictions, truth and probabilities
-def VisualizePredictions(start, end):
-    labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
-    for i in range(start, end):
+    ## Visualize predictions, truth and probabilities
+    def VisualizePredictions(self, start, end, output_path):
+        labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
+        fig = plt.figure(figsize=(8, 8))
+        for i, j in zip(range(start, end), range(0, 20)):
             ## In case of correct classfication, plot with green maintitle else red.
-            print("X = {0}, Predicted class = {1} with probability {2:.4f}".format(x_test[i], labels[predicted_class[i]], predicted_proba[i][predicted_class[i]]))
-            plt.imshow(x_test[i,:,:, 0])
-            plt.title('True class: {0} \n Predicted class: {1} \n Probability: {2:.4f}'.format(labels[predicted_class[i]], labels[y_test_long[i]], predicted_proba[i][predicted_class[i]]),
-             color = 'green' if labels[predicted_class[i]] == labels[y_test_long[i]] else 'red', size = 12)
-            plt.show()
+            print("X = {0}, Predicted class = {1} with probability {2:.4f}".format(self.x_test[i], labels[self.predicted_class[i]], self.predicted_proba[i][self.predicted_class[i]]))
+            fig.add_subplot(4, 5, j + 1)
+            plt.imshow(self.x_test[i,:,:, 0])
+            plt.title('True class: {0} \n Predicted class: {1} \n Probability: {2:.4f}'.format(labels[self.predicted_class[i]], labels[pd.DataFrame(self.y_test)[0][i]], self.predicted_proba[i][self.predicted_class[i]]),
+            color='green' if labels[self.predicted_class[i]] == labels[pd.DataFrame(self.y_test)[0][i]] else 'red', size=8)
+        plt.tight_layout()
+        plt.savefig(output_path + 'Fashion_{0}_{1}.png'.format(start, end))
+        plt.close()
+
+
+
+fashion = fashion_mnist_classifier(x_train, y_train, x_test, y_test)
+fashion.read_fashion_mnist()
+fashion.CNN_model(128, 1)
+
+for i in range(0, 200, 20):
+    fashion.VisualizePredictions(i, i + 20, output_path)
 
