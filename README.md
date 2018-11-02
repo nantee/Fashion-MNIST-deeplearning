@@ -20,7 +20,7 @@ The mainscript `main.py`.
 
 
 ![Predictions](assets/Graph-metric.gif)
-<img src="assets/Graph-metric.gif" width="450", height="450" />
+<img src="assets/Graph-metric.gif" width="300", height="300" />
 
 Predictions, truth and probability. Green title is correct classification and red title shows the non-correct classifications. 
 
