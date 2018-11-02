@@ -9,10 +9,12 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 * numpy
 * mathplotlib
 
+## Result
+Predictions, truth and probability. Green title is correct classifications and red title non-correct classifications. 
+
 <img src="assets/Graph-metric.gif" width="850" height="850" />
 
 
-Predictions, truth and probability. Green title is correct classification and red title shows the non-correct classifications. 
 
 
 ## MNIST for beginners in tensorflow:
