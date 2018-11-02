@@ -18,8 +18,6 @@ import moviepy.editor as mpy
 
 
 
-
-
 class FashionMnistClassifier:
     
     def __init__(self):
@@ -101,8 +99,9 @@ class FashionMnistClassifier:
         print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
         return self.score, self.predicted_class, self.predicted_proba, history
     
-    ## Visualize predictions, truth and probabilities
+    
     def Visualize_predictions(self, start, end, output_path):
+        ## Visualize predictions, truth and probabilities
         labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
         fig = plt.figure(figsize=(12, 12))
         for i, j in zip(range(start, end), range(0, 20)):
@@ -118,6 +117,7 @@ class FashionMnistClassifier:
         plt.close()
     
     def Gif_maker(self, dir_path):
+        ## Saveplots and generate a gif
         img_start = 0
         img_end = 150
         for i in range(img_start, img_end, 15):
