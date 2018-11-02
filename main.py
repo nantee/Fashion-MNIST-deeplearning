@@ -23,7 +23,6 @@ class FashionMnistClassifier:
     def __init__(self):
         (self.x_train, self.y_train), (self.x_test, self.y_test) = fashion_mnist.load_data()
     
-    def read_fashion_mnist(self):
         ## Reading in data    
         print('Training data have a proportion of {}'.format(len(self.x_train) / ( len(self.x_train) + len(self.x_test)))) 
         print('Test data have a proportion of {}'.format(1- len(self.x_train) / ( len(self.x_train) + len(self.x_test))))
