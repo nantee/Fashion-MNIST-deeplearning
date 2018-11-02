@@ -98,9 +98,8 @@ class FashionMnistClassifier:
         print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
         return self.score, self.predicted_class, self.predicted_proba, history
     
-    
+    ## Visualize predictions, truth and probabilities
     def Visualize_predictions(self, start, end, output_path):
-        ## Visualize predictions, truth and probabilities
         labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
         fig = plt.figure(figsize=(12, 12))
         for i, j in zip(range(start, end), range(0, 20)):
@@ -109,22 +108,21 @@ class FashionMnistClassifier:
             fig.add_subplot(3, 5, j + 1)
             plt.imshow(self.x_test[i,:,:, 0], cmap = 'gray')
             plt.title('True class: {0} \n Predicted class: {1} \n Probability: {2:.4f}'.format(labels[pd.DataFrame(self.y_test)[0][i]], labels[self.predicted_class[i]], self.predicted_proba[i][self.predicted_class[i]]),
-            color='green' if labels[self.predicted_class[i]] == labels[pd.DataFrame(self.y_test)[0][i]] else 'red', size=12)
-        plt.tight_layout()
-        #plt.show()
+            color='green' if labels[self.predicted_class[i]] == labels[pd.DataFrame(self.y_test)[0][i]] else 'red', size=10)
         plt.savefig(output_path + 'Fashion_{0}_{1}.png'.format(start, end))
         plt.close()
     
     def Gif_maker(self, dir_path):
-        ## Saveplots and generate a gif
         img_start = 0
         img_end = 150
         for i in range(img_start, img_end, 15):
             self.Visualize_predictions(i, i + 15, dir_path)
         
         gif_name = 'Graph-metric'
-        fps = 0.25
+        fps = 0.50
         file_list = glob.glob('*.png') # Get all the pngs in the current directory
         list.sort(file_list, key=lambda x: int(x.split('_')[1].split('.png')[0])) # Sort the images by #, this may need to be tweaked for your use case
         clip = mpy.ImageSequenceClip(file_list, fps=fps)
         clip.write_gif('{}.gif'.format(gif_name), fps=fps)
+        
+       
