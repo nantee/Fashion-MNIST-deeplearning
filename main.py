@@ -109,8 +109,9 @@ class fashion_mnist_classifier:
         print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
         return self.score, self.predicted_class, self.predicted_proba, history
     
-    ## Visualize predictions, truth and probabilities
+    
     def VisualizePredictions(self, start, end, output_path):
+        ## Visualize predictions, truth and probabilities
         labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
         fig = plt.figure(figsize=(8, 8))
         for i, j in zip(range(start, end), range(0, 20)):
