@@ -12,8 +12,8 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 ## Result
 Predictions, truth and probability. Green title is correct classifications and red title non-correct classifications. 
 
-<img src="assets/Graph-metric.gif" width="850" height="850" />
 
+<img src="assets/Fashion_15_30.png" width="850" height="850" />
 
 
 
