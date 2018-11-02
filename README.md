@@ -11,7 +11,7 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 * mathplotlib
 
 ## Example 
-Modelpredictions of 15 a test sample displaying the models performance based on titlecoloring (green = correct and red = non-correct).
+Modelpredictions of 15 a test sample displaying the models performance based on titlecoloring (green = correct, red = non-correct).
 <img src="assets/Fashion_15_30.png" width="850" height="850" />
 
 ## MNIST for beginners in tensorflow:
