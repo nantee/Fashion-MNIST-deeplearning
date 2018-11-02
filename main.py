@@ -13,18 +13,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import keras
+import glob
+import moviepy.editor as mpy
 
 
-(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
 
-class fashion_mnist_classifier:
-       
-    def __init__(self, x_train, y_train, x_test, y_test):
-        self.x_train = x_train
-        self.y_train = y_train
-        self.x_test = x_test
-        self.y_test = y_test
+
+class FashionMnistClassifier:
+    
+    def __init__(self):
+        (self.x_train, self.y_train), (self.x_test, self.y_test) = fashion_mnist.load_data()
     
     def read_fashion_mnist(self):
         ## Reading in data    
@@ -34,17 +33,10 @@ class fashion_mnist_classifier:
         ## Input image dimensions
         img_rows, img_cols = 28, 28
         
-        self.x_train = np.array(self.x_train)
-        self.x_test = np.array(self.x_test)
-        
-        ## Transform data from (N, 784) to (N, 28, 28, 1)
-        self.x_train = self.x_train.reshape(self.x_train.shape[0], img_rows, img_cols, 1)
-        self.x_test = self.x_test.reshape(self.x_test.shape[0], img_rows, img_cols, 1)
+        ## Transform data from (N, 28,28) to (N, 28, 28, 1) and normalize
+        self.x_train = np.expand_dims( (self.x_train - 127.5 ) /127.5, axis = -1)
+        self.x_test = np.expand_dims( (self.x_test - 127.5 ) /127.5, axis = -1)
         self.input_shape = (img_rows, img_cols, 1)
-        
-        ## Normalization (pixel values varies from 0 to 255)
-        self.x_train = self.x_train.astype('float32') / 255
-        self.x_test = self.x_test.astype('float32') / 255
         
         print('x_train shape:', self.x_train.shape)
         print('x_test shape:', self.x_train.shape)
@@ -109,28 +101,31 @@ class fashion_mnist_classifier:
         print('%s, %s, %s and %s are returned' % ('Score', 'Predicted_class', 'Predicted_proba', 'History') )
         return self.score, self.predicted_class, self.predicted_proba, history
     
-    
-    def VisualizePredictions(self, start, end, output_path):
-        ## Visualize predictions, truth and probabilities
+    ## Visualize predictions, truth and probabilities
+    def Visualize_predictions(self, start, end, output_path):
         labels = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle']
-        fig = plt.figure(figsize=(8, 8))
+        fig = plt.figure(figsize=(12, 12))
         for i, j in zip(range(start, end), range(0, 20)):
             ## In case of correct classfication, plot with green maintitle else red.
             print("X = {0}, Predicted class = {1} with probability {2:.4f}".format(self.x_test[i], labels[self.predicted_class[i]], self.predicted_proba[i][self.predicted_class[i]]))
-            fig.add_subplot(4, 5, j + 1)
-            plt.imshow(self.x_test[i,:,:, 0])
-            plt.title('True class: {0} \n Predicted class: {1} \n Probability: {2:.4f}'.format(labels[self.predicted_class[i]], labels[pd.DataFrame(self.y_test)[0][i]], self.predicted_proba[i][self.predicted_class[i]]),
-            color='green' if labels[self.predicted_class[i]] == labels[pd.DataFrame(self.y_test)[0][i]] else 'red', size=8)
+            fig.add_subplot(3, 5, j + 1)
+            plt.imshow(self.x_test[i,:,:, 0], cmap = 'gray')
+            plt.title('True class: {0} \n Predicted class: {1} \n Probability: {2:.4f}'.format(labels[pd.DataFrame(self.y_test)[0][i]], labels[self.predicted_class[i]], self.predicted_proba[i][self.predicted_class[i]]),
+            color='green' if labels[self.predicted_class[i]] == labels[pd.DataFrame(self.y_test)[0][i]] else 'red', size=12)
         plt.tight_layout()
+        #plt.show()
         plt.savefig(output_path + 'Fashion_{0}_{1}.png'.format(start, end))
         plt.close()
-
-
-
-fashion = fashion_mnist_classifier(x_train, y_train, x_test, y_test)
-fashion.read_fashion_mnist()
-fashion.CNN_model(128, 1)
-
-for i in range(0, 200, 20):
-    fashion.VisualizePredictions(i, i + 20, output_path)
-
+    
+    def Gif_maker(self, dir_path):
+        img_start = 0
+        img_end = 150
+        for i in range(img_start, img_end, 15):
+            self.Visualize_predictions(i, i + 15, dir_path)
+        
+        gif_name = 'Graph-metric'
+        fps = 0.25
+        file_list = glob.glob('*.png') # Get all the pngs in the current directory
+        list.sort(file_list, key=lambda x: int(x.split('_')[1].split('.png')[0])) # Sort the images by #, this may need to be tweaked for your use case
+        clip = mpy.ImageSequenceClip(file_list, fps=fps)
+        clip.write_gif('{}.gif'.format(gif_name), fps=fps)
