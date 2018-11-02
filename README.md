@@ -18,7 +18,7 @@ The mainscript `main.py`.
 
 3) The model history, categorical and probability predictions are saved and visually evaluated in a defined function. 
 
-<img src="assets/Graph-metric.gif" width="300" height="300" />
+<img src="assets/Graph-metric.gif" width="450" height="450" />
 ![Predictions](assets/Graph-metric.gif)
 
 
