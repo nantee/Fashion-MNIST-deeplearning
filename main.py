@@ -17,7 +17,6 @@ import glob
 import moviepy.editor as mpy
 
 
-
 class FashionMnistClassifier:
     
     def __init__(self):
@@ -125,5 +124,3 @@ class FashionMnistClassifier:
         list.sort(file_list, key=lambda x: int(x.split('_')[1].split('.png')[0])) # Sort the images by #, this may need to be tweaked for your use case
         clip = mpy.ImageSequenceClip(file_list, fps=fps)
         clip.write_gif('{}.gif'.format(gif_name), fps=fps)
-        
-       
