@@ -10,7 +10,7 @@ Train a deep Convolutional neural network to classify Zalando’s article images
 * mathplotlib
 
 ## Result
-Predictions, truth and probability. Green title is correct classifications and red title non-correct classifications. 
+Example of 15 modelpredictions generated. Green title means correct classifications and red title non-correct classifications. 
 
 
 <img src="assets/Fashion_15_30.png" width="850" height="850" />
