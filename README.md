@@ -1,6 +1,6 @@
 
 # **Fashion MNIST Deep learning**
-Train a deep Convolutional neural network to classify Zalando’s article images with keras. In general, the color is irrelevant when distinquishing different types of clothes. Shape however is relevant and therefor a grayscale is set in the beginning eliminating any problem the RGB dimensions might add to the CNN's featuremapping. In some cases emblems on a t-shirt for example might add unnecessary information, no effort was put in regarding removal of emblens in this repo but could definitely considered.
+Train a deep Convolutional neural network to classify Zalando’s article images with keras. In general, the color is probably irrelevant when distinquishing different types of clothes since they could vary substantially in many clothingtypes. Shape however is relevant and therefor a grayscale is set in the beginning eliminating any problem the RGB dimensions might add to the CNN's featuremapping. In some cases emblems on a t-shirt for example might add unnecessary information, no effort was put in regarding removal of emblens in this repo but could definitely considered.
 
 
 ## Dependencies
