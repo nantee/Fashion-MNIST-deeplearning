@@ -1,6 +1,6 @@
 
 # **Fashion MNIST Deep learning**
-Train a deep Convolutional neural network to classify Zalando’s article images with keras. 
+Train a deep Convolutional neural network to classify Zalando’s article images with keras. In general, the color is irrelevant to distinquish different sorts of clothingtypes. Shape however is relevant, therefor a grayscale is set in the beginning eliminating any problem the RGB dimensions might add to the featuremapping in the convolutional layers.
 
 
 ## Dependencies
